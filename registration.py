@@ -45,6 +45,18 @@ def main():
     student_id = input('enter student id: ')
     login(student_id, student_list)
     show_menu()
+        while True:
+        action = input('what do you want to do: ')
+        if action == '1':
+            add_course(student_id, course_roster, course_max_size)
+        if action == '2':
+            drop_course(student_id, course_roster)
+        if action == '3':
+            list_courses(student_id, course_roster)
+        if action == '4':
+            display_bill(student_id, student_in_state, course_roster, course_hours)
+        if action == '0':
+            break
 
 
 def login(s_id, s_list):
@@ -84,18 +96,6 @@ def show_menu():
     print('4:show bill')
     print('0:logout')
 
-    while True:
-        action = input('what do you want to do: ')
-        if action == 1:
-            add_course()
-        if action == 2:
-            drop_course()
-        if action == 3:
-            display_bill()
-        if action == 0:
-            break
-        else:
-            print('Error, please choose form menu')
 
 
 main()
