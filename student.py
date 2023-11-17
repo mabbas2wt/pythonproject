@@ -16,15 +16,15 @@ def list_courses(s_id, c_roster):
     # ID of the student; c_roster is the list of class rosters.
     # This function has no return value.
     # -------------------------------------------------------------
-    all_courses = []
-    reg_courses = []
+    count = 0
 
-    for courses in c_roster:
-        all_courses.append(courses)
-        if s_id in courses:
-            reg_courses.append(courses)
-    print(all_courses)
-    print(reg_courses)
+    for course, student_list in c_roster.items():
+        if s_id in student_list:
+            print(f'{course} (enrolled)')
+            count += 1
+        else:
+            print(course)
+    print(f'total courses enrolled:{count}')
 
 
 def add_course(s_id, c_roster, c_max_size):
@@ -41,7 +41,17 @@ def add_course(s_id, c_roster, c_max_size):
     # roster and display a message if there is no problem.  This
     # function has no return value.
     # -------------------------------------------------------------
-    pass  # temporarily avoid empty function definition
+    course_to_add = input("Enter the course you want to add: ")
+
+    if course_to_add not in c_roster:
+        print("Course not found.")
+    elif s_id in c_roster[course_to_add]:
+        print("You are already enrolled in that course.")
+    elif len(c_roster[course_to_add]) >= c_max_size[course_to_add]:
+        print("Course already full.")
+    else:
+        c_roster[course_to_add].append(s_id)
+        print(f"Student {s_id} has been added to {course_to_add}.")
 
 
 def drop_course(s_id, c_roster):
@@ -55,4 +65,18 @@ def drop_course(s_id, c_roster):
     # Remove student ID from the course’s roster and display a message
     # if there is no problem.  This function has no return value.
     # -------------------------------------------------------------
-    pass  # temporarily avoid empty function definition
+    course_to_drop = input("Enter the course you want to drop: ")
+
+    # Check if the course is not offered
+    if course_to_drop not in c_roster:
+        print("Course not found")
+        return
+
+    # Check if the student is not enrolled in that course
+    if s_id not in c_roster[course_to_drop]:
+        print("You are not enrolled in that course.")
+        return
+
+    # Remove the student ID from the course's roster
+    c_roster[course_to_drop].remove(s_id)
+    print("Course dropped")
