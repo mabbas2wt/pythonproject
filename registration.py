@@ -80,7 +80,7 @@ def login(s_id, s_list):
             return False
     else:
         print("Student doesn't exist")
-        return False
+        sys.exit()
 
 
 def show_menu():
